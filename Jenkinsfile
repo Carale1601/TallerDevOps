@@ -43,7 +43,9 @@ pipeline {
                         bat 'kubectl config view'
                         bat 'kubectl config get-contexts'
                         bat 'helm install project .'
-                        bat 'helm project .'
+                        bat 'helm upgrade project .'
+                        bat 'kubectl get services'
+                        bat 'kubectl get pods'
                         bat 'kubectl port-forward service/user-management-testing 3001:3001 & kubectl port-forward service user-management 3000:3000 &'
                     }       
                 }
