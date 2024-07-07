@@ -42,6 +42,7 @@ pipeline {
                         bat 'helm version'
                         bat 'kubectl config view'
                         bat 'kubectl config get-contexts'
+                        bat 'helm uninstall project'
                         bat 'helm install project .'
                         bat 'helm upgrade project .'
                         bat 'kubectl get services'
