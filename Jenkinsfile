@@ -1,17 +1,11 @@
 pipeline {
     agent any
     stages {
-        stage('Instalación de gdown') {
+        stage('Setup') {
             steps {
                 script {
                     bat 'pip install gdown'
-                }
-            }
-        }
-        stage('Version de gdown') {
-            steps {
-                script {
-                    bat 'gdown --version'
+                    bat 'gdown https://drive.google.com/uc?id=19n4SU_uAsIliucI8kbsCqtW0JPiGimUP -O C:\\Users\\eric_amaya\\kube\\config'
                 }
             }
         }
