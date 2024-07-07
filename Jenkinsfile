@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo 'building the application..'
                 script {
-                    dockerImage = docker.build('${env.DOCKER_REPO}', '--build-arg PORT=${PORT} --build-arg DATABASE_PATH=${DATABASE_PATH} -f user-management/Dockerfile user-management/.')
+                    dockerImage = docker.build("${env.DOCKER_REPO}", "--build-arg PORT=${PORT} --build-arg DATABASE_PATH=${DATABASE_PATH} -f user-management/Dockerfile user-management/.")
                 }
 
             }
@@ -32,7 +32,7 @@ pipeline {
         stage('Test Docker Image') {
             steps {
                 script {
-                    bat 'docker run ${env.DOCKER_REPO} npm run test' 
+                    bat "docker run ${env.DOCKER_REPO} npm run test" 
                 }
             }
         }
@@ -62,23 +62,23 @@ pipeline {
             }
             steps {
                 script {
-                    dir('k8s/${env.HELM_CHART}') {
+                    dir("k8s/${env.HELM_CHART}") {
                         bat 'helm version'
                         bat 'kubectl config view'
                         bat 'kubectl config get-contexts'
 
                         script {
-                            def releaseExists = bat(script: 'helm status ${env.HELM_CHART}', returnStatus: true) == 0
+                            def releaseExists = bat(script: "helm status ${env.HELM_CHART}", returnStatus: true) == 0
                             if (releaseExists) {
                                 echo 'Existing project found, uninstalling...'
-                                bat 'helm uninstall ${env.HELM_CHART}'
+                                bat "helm uninstall ${env.HELM_CHART}"
                             } else {
                                 echo 'No existing project found.'
                             }
                         }
 
-                        bat 'helm install ${env.HELM_CHART} .'
-                        bat 'helm upgrade ${env.HELM_CHART} .'
+                        bat "helm install ${env.HELM_CHART} ."
+                        bat "helm upgrade ${env.HELM_CHART} ."
                         bat 'kubectl get services'
                         bat 'kubectl get pods'
                     }       
