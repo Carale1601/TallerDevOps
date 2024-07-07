@@ -39,7 +39,7 @@ pipeline {
                     dir('k8s/project') {
                         docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-crd') {
                             bat 'helm version'
-                            bat 'kubectl get pods --namespace=default'
+                            bat 'kubectl config get-contexts'
                             bat 'helm install project .'
                             bat 'helm project .'
                             bat 'kubectl port-forward service/user-management-testing 3001:3001 & kubectl port-forward service user-management 3000:3000 &'
