@@ -64,7 +64,7 @@ pipeline {
                     kubectl config use-context default-context
                     """
                     bat 'cd'
-                    dir('k8s/projects') {
+                    dir('k8s/project') {
                         bat 'kubectl config view --raw > C:\\Users\\eric_amaya\\.kube\\config'
                         bat 'helm install project .'
                         bat 'helm project .'
