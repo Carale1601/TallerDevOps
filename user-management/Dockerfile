@@ -10,6 +10,6 @@ COPY . .
 
 RUN apk update && apk add --no-cache sqlite sqlite-dev
 
-EXPOSE 3000
+EXPOSE 31911
 
 CMD ["npm", "run", "start:dev"]
