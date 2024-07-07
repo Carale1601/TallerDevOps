@@ -1,6 +1,20 @@
 pipeline {
     agent any
     stages {
+        stage('Instalación de gdown') {
+            steps {
+                script {
+                    sh 'pip install gdown'
+                }
+            }
+        }
+        stage('Instalación de gdown') {
+            steps {
+                script {
+                    sh 'gdown --version'
+                }
+            }
+        }
         stage('Build') {
             steps {
                 echo 'building the application..'
