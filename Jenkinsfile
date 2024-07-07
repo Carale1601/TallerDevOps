@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo 'building the application..'
                 script {
-                    dockerImage = docker.build('${env.DOCKER_REPO}', '--build-arg PORT=${PORT} --build-arg DATABASE_PATH=${DATABASE_PATH} -f user-management/Dockerfile user-management/.')
+                    dockerImage = docker.build(env.DOCKER_REPO, '--build-arg PORT=${PORT} --build-arg DATABASE_PATH=${DATABASE_PATH} -f user-management/Dockerfile user-management/.')
                 }
 
             }
