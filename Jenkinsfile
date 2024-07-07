@@ -49,6 +49,7 @@ pipeline {
                     """
                     dir('k8s/project') {
                         docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-crd') {
+                            bat 'kubectl config view --raw > C:\\Users\\eric_amaya\\.kube\\config'
                             bat 'helm version'
                             bat 'helm install project .'
                             bat 'helm project .'
