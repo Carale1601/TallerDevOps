@@ -2,13 +2,15 @@ pipeline {
     agent any
     environment {
         KUBECONFIG = 'C:\\Users\\eric_amaya\\.kube\\config'
+        PORT = '3000'
+        DATABASE_PATH = 'database/db.sqlite'
     }
     stages {
         stage('Build') {
             steps {
                 echo 'building the application..'
                 script {
-                    dockerImage = docker.build('ericamaya29/user-management:latest', '-f user-management/Dockerfile user-management/.')
+                    dockerImage = docker.build('ericamaya29/user-management:latest', '--build-arg PORT=${PORT} --build-arg DATABASE_PATH=${DATABASE_PATH} -f user-management/Dockerfile user-management/.')
                 }
 
             }
