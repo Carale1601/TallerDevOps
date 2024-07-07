@@ -22,7 +22,7 @@ pipeline {
                 }
             }
         }
-        stage('Build') {
+        stage('Build Image') {
             steps {
                 echo 'building the application..'
                 script {
