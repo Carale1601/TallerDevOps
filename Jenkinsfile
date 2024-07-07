@@ -63,6 +63,7 @@ pipeline {
             steps {
                 script {
                     dir('k8s/projects') {
+                        bat 'kubectl config view --raw >~/.kube/config'
                         bat 'helm uninstall project'
                         bat 'helm install project .'
                         bat 'helm project .'
