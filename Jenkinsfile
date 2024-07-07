@@ -45,7 +45,7 @@ pipeline {
 
                         // Check if the release exists and uninstall if it does
                         script {
-                            def helmListOutput = bat(script: 'helm list -q', returnStdout: true).trim()
+                            def helmListOutput = bat(script: 'helm list -q', returnStdout: true) == ''
                             if (helmListOutput.contains('project')) {
                                 echo 'Existing project found, uninstalling...'
                                 bat 'helm uninstall project'
