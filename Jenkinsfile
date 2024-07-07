@@ -38,6 +38,7 @@ pipeline {
                 script {
                     dir('k8s/project') {
                         bat 'helm version'
+                        bat 'kubectl config view'
                         bat 'kubectl config get-contexts'
                         bat 'helm install project .'
                         bat 'helm project .'
