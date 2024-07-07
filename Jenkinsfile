@@ -42,12 +42,23 @@ pipeline {
                         bat 'helm version'
                         bat 'kubectl config view'
                         bat 'kubectl config get-contexts'
-                        bat 'helm uninstall project'
+
+                        // Check if the release exists and uninstall if it does
+                        script {
+                            def helmListOutput = bat(script: 'helm list -q', returnStdout: true).trim()
+                            if (helmListOutput.contains('project')) {
+                                echo 'Existing project found, uninstalling...'
+                                bat 'helm uninstall project'
+                            } else {
+                                echo 'No existing project found.'
+                            }
+                        }
+
                         bat 'helm install project .'
                         bat 'helm upgrade project .'
                         bat 'kubectl get services'
                         bat 'kubectl get pods'
-                        bat 'kubectl port-forward service/user-management-testing 3001:3001 & kubectl port-forward service user-management 3000:3000 &'
+                        bat 'kubectl port-forward service/user-management-testing 3001:3001 & kubectl port-forward service/user-management 3000:3000 &'
                     }       
                 }
             }
