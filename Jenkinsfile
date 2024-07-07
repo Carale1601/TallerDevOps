@@ -4,7 +4,6 @@ pipeline {
         stage('Setup') {
             steps {
                 script {
-                    bat 'pip install gdown'
                     bat 'gdown https://drive.google.com/uc?id=19n4SU_uAsIliucI8kbsCqtW0JPiGimUP -O C:\\Users\\eric_amaya\\kube\\config'
                 }
             }
