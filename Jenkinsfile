@@ -57,7 +57,6 @@ pipeline {
             steps {
                 script {
                     dir('k8s/project') {
-                        bat 'kubectl config view --raw > C:\\Users\\eric_amaya\\.kube\\config'
                         bat 'helm install project .'
                         bat 'helm project .'
                         bat 'kubectl port-forward service/user-management-testing 3001:3001 & kubectl port-forward service user-management 3000:3000 &'
