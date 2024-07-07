@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: user-management-testing
+  name: user-management-testing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-management-testing
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: user-management-testing
+    spec:
+      containers:
+        - image: dbassa/user-management:latest
+          name: user-management-testing
+          imagePullPolicy: IfNotPresent
+          command: ["npm"]
+          args: ["run", "start:dev"]
+          env:
+            - name: PORT
+              value: "3001"
+            - name: DATABASE_PATH
+              value: "database/db.sqlite"
+          resources: {}
+status: {}

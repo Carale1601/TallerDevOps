@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: user-management
+  name: user-management
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-management
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: user-management
+    spec:
+      containers:
+        - image: dbassa/user-management:latest
+          name: user-management
+          imagePullPolicy: IfNotPresent
+          command: ["npm"]
+          args: ["run", "start:dev"]
+          env:
+            - name: PORT
+              value: "3000"
+            - name: DATABASE_PATH
+              value: "database/db.sqlite"
+          resources: {}
+status: {}
