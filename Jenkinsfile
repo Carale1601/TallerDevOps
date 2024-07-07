@@ -74,15 +74,13 @@ pipeline {
                         script {
                             def releaseExists = bat(script: "helm status ${env.HELM_CHART}", returnStatus: true) == 0
                             if (releaseExists) {
-                                echo 'Existing project found, uninstalling...'
-                                bat "helm uninstall ${env.HELM_CHART}"
+                                echo 'Existing project found, updating...'
+                                bat "helm upgrade ${env.HELM_CHART} ."
                             } else {
-                                echo 'No existing project found.'
+                                echo 'Installing project...'
+                                bat "helm install ${env.HELM_CHART} ."
                             }
                         }
-
-                        bat "helm install ${env.HELM_CHART} ."
-                        bat "helm upgrade ${env.HELM_CHART} ."
                         bat 'kubectl get services'
                         bat 'kubectl get pods'
                     }       
