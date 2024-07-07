@@ -34,7 +34,7 @@ pipeline {
         stage('Test Docker Image') {
             steps {
                 script {
-                    bat 'docker run ${env.DOCKER_REPO} npm run test' 
+                    bat "docker run ${env.DOCKER_REPO} npm run test" 
                 }
             }
         }
