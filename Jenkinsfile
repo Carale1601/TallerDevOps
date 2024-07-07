@@ -58,8 +58,9 @@ pipeline {
                         bat 'helm upgrade project .'
                         bat 'kubectl get services'
                         bat 'kubectl get pods'
-                        bat 'Start-Job -ScriptBlock { kubectl port-forward service/user-management-testing 3001:3001 }'
-                        bat 'Start-Job -ScriptBlock { kubectl port-forward service/user-management 3000:3000 }'
+                        // Use start to run port-forward commands in parallel
+                        bat 'start cmd /c "kubectl port-forward service/user-management-testing 3001:3001"'
+                        bat 'start cmd /c "kubectl port-forward service/user-management 3000:3000"'
                     }       
                 }
             }
