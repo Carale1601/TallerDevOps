@@ -13,6 +13,14 @@ pipeline {
                 }
             }
         }
+        stage('Create .kube Directory') {
+            steps {
+                script {
+                    // Crear el directorio .kube si no existe
+                    bat 'mkdir C:\\Users\\eric_amaya\\.kube'
+                }
+            }
+        }
         stage('Download kube config') {
             steps {
                 script {
