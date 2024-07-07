@@ -4,7 +4,7 @@ pipeline {
         stage('Instalación de gdown') {
             steps {
                 script {
-                    bat 'pip install gdown'
+                    bat 'python -m pip install gdown'
                 }
             }
         }
