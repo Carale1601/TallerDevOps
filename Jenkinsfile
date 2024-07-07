@@ -7,7 +7,7 @@ pipeline {
         DEV_PORT = credentials('DEV_PORT')
     }
     stages {
-        stage('Set Environment Variables') {
+        stage('Set Environment') {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'main') {
@@ -22,7 +22,7 @@ pipeline {
                 }
             }
         }
-        stage('Build') {
+        stage('Build Image') {
             steps {
                 echo 'building the application..'
                 script {
