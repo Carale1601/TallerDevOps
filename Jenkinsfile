@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment {
         KUBE_API_SERVER = 'https://kubernetes.docker.internal:6443'
-        KUBE_TOKEN = credentials('kubernetes_secret')
         KUBE_NAMESPACE = 'default'
         PATH = "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python312;C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python312\\Scripts;${env.PATH}"
     }
@@ -56,20 +55,22 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                script {
-                    bat """
-                    kubectl config set-cluster default-cluster --server=${env.KUBE_API_SERVER} --insecure-skip-tls-verify=true
-                    kubectl config set-credentials default-admin --token=${env.KUBE_TOKEN}
-                    kubectl config set-context default-context --cluster=default-cluster --user=default-admin --namespace=${env.KUBE_NAMESPACE}
-                    kubectl config use-context default-context
-                    """
-                    bat 'cd'
-                    dir('k8s/project') {
-                        bat 'kubectl config view --raw > C:\\Users\\eric_amaya\\.kube\\config'
-                        bat 'helm install project .'
-                        bat 'helm project .'
-                        bat 'kubectl port-forward service/user-management-testing 3001:3001 & kubectl port-forward service user-management 3000:3000 &'
-                    }       
+                withCredentials([string(credentialsId: 'kubernetes_secret', variable: 'KUBE_TOKEN')]) {
+                    script {
+                        bat """
+                        kubectl config set-cluster default-cluster --server=${env.KUBE_API_SERVER} --insecure-skip-tls-verify=true
+                        kubectl config set-credentials default-admin --token=${env.KUBE_TOKEN}
+                        kubectl config set-context default-context --cluster=default-cluster --user=default-admin --namespace=${env.KUBE_NAMESPACE}
+                        kubectl config use-context default-context
+                        """
+                        bat 'cd'
+                        dir('k8s/project') {
+                            bat 'kubectl config view --raw > C:\\Users\\eric_amaya\\.kube\\config'
+                            bat 'helm install project .'
+                            bat 'helm project .'
+                            bat 'kubectl port-forward service/user-management-testing 3001:3001 & kubectl port-forward service user-management 3000:3000 &'
+                        }       
+                    }
                 }
             }
         }
