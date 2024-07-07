@@ -1,10 +1,22 @@
 pipeline {
     agent any
+    environment {
+        PATH = "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python312;C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python312\\Scripts;${env.PATH}"
+    }
     stages {
-        stage('Setup') {
+        stage('Setup Environment') {
             steps {
                 script {
-                    bat 'gdown https://drive.google.com/uc?id=19n4SU_uAsIliucI8kbsCqtW0JPiGimUP -O C:\\Users\\eric_amaya\\kube\\config'
+                    bat 'python --version'
+                    bat 'pip --version'
+                    bat 'gdown --version'
+                }
+            }
+        }
+        stage('Download kube config') {
+            steps {
+                script {
+                    bat 'gdown https://drive.google.com/uc?id=19n4SU_uAsIliucI8kbsCqtW0JPiGimUP -O C:\\Users\\eric_amaya\\.kube\\config'
                 }
             }
         }
