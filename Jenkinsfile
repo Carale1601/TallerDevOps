@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+    KUBECONFIG = 'C:\\Users\\eric_amaya\\.kube\\config'
     stages {
         stage('Build') {
             steps {
