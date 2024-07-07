@@ -12,7 +12,7 @@ pipeline {
                         env.PORT = credentials('PROD_PORT')
                         env.DOCKER_REPO = 'ericamaya29/user-management:latest'
                         env.HELM_CHART = 'production'
-                    } else if (env.BRANCH_NAME == 'testing') {
+                    } else { 
                         env.PORT = credentials('DEV_PORT')
                         env.DOCKER_REPO = 'ericamaya29/user-management-testing:latest'
                         env.HELM_CHART = 'testing'
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo 'building the application..'
                 script {
-                    dockerImage = docker.build('${env.DOCKER_REPO}', '--build-arg PORT=${PORT} --build-arg DATABASE_PATH=${DATABASE_PATH} -f user-management/Dockerfile user-management/.')
+                    dockerImage = docker.build(env.DOCKER_REPO, '--build-arg PORT=${env.PORT} --build-arg DATABASE_PATH=${env.DATABASE_PATH} -f user-management/Dockerfile user-management/.')
                 }
 
             }
@@ -38,6 +38,12 @@ pipeline {
         }
 
         stage('Push Docker Image') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'testing'
+                }
+            }
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-crd') {
@@ -48,6 +54,12 @@ pipeline {
             }
         }
         stage('Deploy') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'testing'
+                }
+            }
             steps {
                 script {
                     dir('k8s/${env.HELM_CHART}') {
