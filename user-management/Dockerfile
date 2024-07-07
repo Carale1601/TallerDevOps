@@ -12,7 +12,4 @@ RUN apk update && apk add --no-cache sqlite sqlite-dev
 
 EXPOSE 3000
 
-ENV PORT=3000
-ENV DATABASE_PATH=database/db.sqlite
-
 CMD ["npm", "run", "start:dev"]
