@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         KUBECONFIG = 'C:\\Users\\eric_amaya\\.kube\\config'
-        PORT = '3000'
+        PORT = '31911'
         DATABASE_PATH = 'database/db.sqlite'
     }
     stages {
