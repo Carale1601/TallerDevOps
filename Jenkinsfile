@@ -4,14 +4,14 @@ pipeline {
         stage('Instalación de gdown') {
             steps {
                 script {
-                    bat 'pip install gdown'
+                    sh 'pip install gdown'
                 }
             }
         }
-        stage('Instalación de gdown') {
+        stage('Version de gdown') {
             steps {
                 script {
-                    bat 'gdown --version'
+                    sh 'gdown --version'
                 }
             }
         }
