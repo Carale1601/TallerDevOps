@@ -3,17 +3,19 @@ pipeline {
     environment {
         KUBECONFIG = credentials('KUBECONFIG')
         DATABASE_PATH = credentials('DATABASE_PATH')
+        PROD_PORT = credentials('PROD_PORT')
+        DEV_PORT = credentials('DEV_PORT')
     }
     stages {
         stage('Set Environment Variables') {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'main') {
-                        env.PORT = credentials('PROD_PORT')
+                        env.PORT = env.PROD_PORT
                         env.DOCKER_REPO = 'ericamaya29/user-management:latest'
                         env.HELM_CHART = 'production'
                     } else { 
-                        env.PORT = credentials('DEV_PORT')
+                        env.PORT = env.DEV_PORT
                         env.DOCKER_REPO = 'ericamaya29/user-management-testing:latest'
                         env.HELM_CHART = 'testing'
                     }
@@ -32,7 +34,7 @@ pipeline {
         stage('Test Docker Image') {
             steps {
                 script {
-                    bat "docker run ${env.DOCKER_REPO} npm run test" 
+                    bat 'docker run ${env.DOCKER_REPO} npm run test' 
                 }
             }
         }
