@@ -4,6 +4,7 @@ pipeline {
         KUBE_API_SERVER = 'https://kubernetes.docker.internal:6443'
         KUBE_TOKEN = credentials('kubernetes_secret')
         KUBE_NAMESPACE = 'default'
+        PATH = "C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python312;C:\\Users\\PC\\AppData\\Local\\Programs\\Python\\Python312\\Scripts;${env.PATH}"
     }
     stages {
         stage('Setup Environment') {
