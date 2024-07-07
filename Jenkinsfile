@@ -5,7 +5,7 @@ pipeline {
             steps {
                 echo 'building the application..'
                 script {
-                    dockerImage = docker.build('ericamaya29/user-management:latest', '-f Dockerfile ./user-management')
+                    dockerImage = docker.build('ericamaya29/user-management:latest', '-f Dockerfile user-management/Dockerfile .')
                 }
 
             }
