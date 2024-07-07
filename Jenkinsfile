@@ -63,6 +63,7 @@ pipeline {
                     kubectl config set-context default-context --cluster=default-cluster --user=default-admin --namespace=${env.KUBE_NAMESPACE}
                     kubectl config use-context default-context
                     """
+                    bat 'cd'
                     dir('k8s/projects') {
                         bat 'kubectl config view --raw > C:\\Users\\eric_amaya\\.kube\\config'
                         bat 'helm install project .'
