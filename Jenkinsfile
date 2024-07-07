@@ -34,7 +34,13 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'deplying the application..'
+                script {
+                    dir('k8s/projects') {
+                        bat 'helm uninstall project'
+                        bat 'helm install project .'
+                        bat 'helm project .'
+                    }       
+                }
             }
         }
 
