@@ -18,7 +18,7 @@ spec:
         app: user-management-testing
     spec:
       containers:
-        - image: ericamaya29/user-management-testing:latest
+        - image: carale/user-management-testing:latest
           name: user-management-testing
           imagePullPolicy: IfNotPresent
           command: ["npm"]

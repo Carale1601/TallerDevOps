@@ -12,11 +12,11 @@ pipeline {
                 script {
                     if (env.BRANCH_NAME == 'main') {
                         env.PORT = env.PROD_PORT
-                        env.DOCKER_REPO = 'ericamaya29/user-management:latest'
+                        env.DOCKER_REPO = 'carale/user-management:latest'
                         env.HELM_CHART = 'production'
                     } else { 
                         env.PORT = env.DEV_PORT
-                        env.DOCKER_REPO = 'ericamaya29/user-management-testing:latest'
+                        env.DOCKER_REPO = 'carale/user-management-testing:latest'
                         env.HELM_CHART = 'testing'
                     }
                 }

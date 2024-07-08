@@ -18,7 +18,7 @@ spec:
         app: user-management
     spec:
       containers:
-        - image: ericamaya29/user-management:latest
+        - image: carale/user-management:latest
           name: user-management
           imagePullPolicy: IfNotPresent
           command: ["npm"]
