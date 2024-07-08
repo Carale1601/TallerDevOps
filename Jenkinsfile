@@ -48,7 +48,7 @@ pipeline {
             }
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-crd') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerjuf') {
                         dockerImage.push("latest")
                         dockerImage.push('latest')
                     }
